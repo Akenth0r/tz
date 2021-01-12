@@ -25,7 +25,6 @@ class RequestSearch extends Request
                 'defaultOrder' => ['id' => SORT_DESC],
             ]
         ]);
-
         $this->load($params);
 
         if (!$this->validate()) {
