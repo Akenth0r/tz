@@ -4,6 +4,7 @@ namespace app\models;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use app\models\Request;
 
 /**
  * @property int $id

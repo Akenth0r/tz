@@ -16,8 +16,7 @@ class RequestSearch extends Request
 
     public function search($params)
     {
-        $query = Request::find();
-        $query->with(['manager']);
+        $query = Request::findLastWithoutDuplicates();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -25,6 +24,7 @@ class RequestSearch extends Request
                 'defaultOrder' => ['id' => SORT_DESC],
             ]
         ]);
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -43,6 +43,10 @@ class RequestSearch extends Request
         $query->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'phone', $this->phone]);
 
+
+        
         return $dataProvider;
     }
+
+    
 }
