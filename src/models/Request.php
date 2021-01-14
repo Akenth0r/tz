@@ -123,14 +123,6 @@ class Request extends \yii\db\ActiveRecord
 
          $query->andWhere(['=', 'req1.id', $subQuery]);
 
-        // $dataProvider = new ActiveDataProvider([
-        //     'query' => $query,
-        // ]);
-
-        // if ($dataProvider->count == 0)
-        //         return null;
-
-
          return $query->one();
     }
 }

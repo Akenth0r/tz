@@ -58,4 +58,26 @@ class Manager extends \yii\db\ActiveRecord
             'id'
         );
     }
+
+    public static function getMinimalRequestCountOne(): Manager 
+    {
+        /*
+            SELECT *, (SELECT count(*) FROM requests where manager_id = managers.id) as count_req
+            FROM managers
+            WHERE is_works = true
+            ORDER BY count_req ASC
+            LIMIT 1;
+        */
+        $subQuery = Request::find();
+        $subQuery->select(['count(*)'])
+            ->where('manager_id = managers.id');
+
+        $query = Manager::find();
+        $query->select(['*', 'request_count' => $subQuery])
+            ->where('is_works = true')
+            ->orderBy(['request_count' => SORT_ASC])
+            ->limit(1);
+
+        return $query->one();
+    }
 }
